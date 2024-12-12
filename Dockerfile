@@ -24,6 +24,7 @@ RUN mkdir -m 0755 /nix && chown root /nix
 RUN curl -L https://nixos.org/nix/install | sh -s -- --daemon
 
 # Source Nix profile to ensure nix command is available and check version
+RUN chmod +x /etc/profile.d/nix.sh
 RUN . /etc/profile.d/nix.sh && nix-env --version
 
 # Clone the NixOS/nix repository
@@ -48,3 +49,4 @@ RUN ls
 
 # Start an interactive shell
 #CMD ["/bin/bash"]
+CMD ["/bin/bash", "-c", "/src_buid_entrypoint.sh"]

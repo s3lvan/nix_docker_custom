@@ -1,0 +1,14 @@
+version: '3'
+services:
+  nix-test:
+    image: nix_docker_custom:latest
+    build: .
+    container_name: nix-docker-custom
+    #command: /bin/bash -c ". /etc/profile.d/nix.sh && nix develop --extra-experimental-features nix-command --extra-experimental-features flakes && mesonConfigurePhase"
+    #command: bash -c "source /etc/profile.d/nix.sh && nix --extra-experimental-features 'nix-command flakes' shell --command mesonBuildPhase"
+    environment:
+      - "CONTAINER_STARTDIR=/usr/src/app/nix"
+    volumes:
+      - ./src2:/usr/src/app/nix/src2
+      - ./src_build_entrypoint.sh:/src_buid_entrypoint.sh
+      - ./environment_vars.sh:/environment_vars.sh
